@@ -1,0 +1,10 @@
+Package: BALfunctions
+Type: Package
+Title: Functions for processing olink proteomics data - in particular for the use of linear mixed models and handling longitudinal data
+Version: 1.0.3
+Author: Jack Gisby - Originally forked from OlinkAnalyze package
+Description: Modified version of the OlinkAnalyze package for working with Olink NPX data, primarily exported from Olink NPX Manager. 
+Encoding: UTF-8
+LazyData: true
+Depends: broom, biomaRt, car, survival, JMbayes, emmeans, ggfortify, ggrepel, lmerTest, openxlsx, stringr, Rfast, tidyverse, readxl, dplyr, randomForestExplainer, caret, nlme, ggplot2
+RoxygenNote: 7.1.1
