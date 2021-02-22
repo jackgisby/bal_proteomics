@@ -4,18 +4,12 @@
 \alias{read_NPX}
 \title{Function to read NPX data into long format}
 \usage{
-read_NPX(
-  filename,
-  sample_manifest = NULL,
-  pheno = NULL,
-  skip_mod = 0,
-  panel = "NA",
-  tab = 1,
-  this_exp = "plasma"
-)
+read_NPX(filename, this_exp = "plasma", num_samples = 31)
 }
 \arguments{
 \item{filename}{Path to file NPX Manager output file.}
+
+\item{this_exp}{Whether the data is plasma or serum}
 
 \item{sample_manifest}{Per individual phenotypic data}
 
@@ -26,8 +20,6 @@ read_NPX(
 \item{panel}{Which panel is currently being read}
 
 \item{tab}{Which excel tab the data is being read from}
-
-\item{this_exp}{Whether the data is plasma or serum}
 }
 \value{
 A tibble in long format.

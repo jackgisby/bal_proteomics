@@ -13,7 +13,8 @@ simple_mixed_de(
   plot_xlab = "Log2 Fold Change (P-N)",
   plot_title = "plasma case/control",
   labels = 0.1,
-  logp_label = 10
+  logp_label = 10,
+  return_models = FALSE
 )
 }
 \arguments{

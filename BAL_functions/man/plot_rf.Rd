@@ -8,7 +8,7 @@ plot_rf(
   rf,
   enet_imp,
   enet_label = 0.95,
-  accuracy_decrease_label = 0.002,
+  mmdepth_label = 2.5,
   return_imp_frame = FALSE
 )
 }

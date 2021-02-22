@@ -9,13 +9,16 @@ olink_pca_plot(
   color_g = "QC_Warning",
   x_val = 1,
   y_val = 2,
-  label_samples = F,
-  drop_assays = F,
-  drop_samples = F,
+  label_samples = FALSE,
+  drop_assays = FALSE,
+  drop_samples = FALSE,
   n_loadings = 0,
   loadings_list = NULL,
-  verbose = T,
-  return_prcomp = FALSE
+  verbose = TRUE,
+  return_prcomp = FALSE,
+  return_df_wide_matrix = FALSE,
+  predicted_prcomp = NULL,
+  plot_scores = TRUE
 )
 }
 \arguments{
