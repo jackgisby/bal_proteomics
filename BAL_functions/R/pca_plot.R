@@ -42,12 +42,12 @@ olink_pca_plot <- function(df,
   if (color_g == "QC_Warning"){
     
     df_temp <- df %>% 
-      group_by(SampleID, Index) %>% 
+      group_by(SampleID) %>% 
       mutate(QC_Warning = if_else(any(QC_Warning == "Warning"), "Warning", "Pass")) %>% 
       ungroup()
     
     colors_for_pca <- df_temp %>%
-      group_by(SampleID, Index) %>% 
+      group_by(SampleID) %>% 
       summarise(pca_colors = unique(!!rlang::ensym(color_g))) %>%
       ungroup()
     
@@ -55,7 +55,7 @@ olink_pca_plot <- function(df,
   } else {
     
     number_of_sample_w_more_than_one_color <- df %>% 
-      group_by(SampleID, Index) %>% 
+      group_by(SampleID) %>% 
       summarise(n_colors = n_distinct(!!rlang::ensym(color_g), na.rm = T)) %>%
       ungroup() %>%
       filter(n_colors > 1) %>%
@@ -70,7 +70,7 @@ olink_pca_plot <- function(df,
       df_temp <- df
       
       colors_for_pca <- df_temp %>%
-        group_by(SampleID, Index) %>% 
+        group_by(SampleID) %>% 
         summarise(pca_colors = unique(!!rlang::ensym(color_g))) %>%
         ungroup()
       
@@ -85,12 +85,12 @@ olink_pca_plot <- function(df,
     ungroup() %>%
     filter(!(assay_var == 0 | is.na(assay_var))) %>%
     dplyr::select(-assay_var)
-  
+
   # wide format
   df_wide <- df_temp %>% 
-    dplyr::select(SampleID, Index, GeneID, NPX) %>% 
+    dplyr::select(SampleID, GeneID, NPX) %>% 
     filter(!is.na(NPX)) %>% 
-    spread(GeneID, NPX)
+    pivot_wider(names_from=GeneID, values_from=NPX)
   
   percent_missingness <- colSums(is.na(df_wide[, -c(1:2)]))/nrow(df_wide)
   
@@ -145,12 +145,11 @@ olink_pca_plot <- function(df,
   # convert long format to matrix
   df_wide <- df_wide %>% 
     left_join(colors_for_pca,
-              by = c('SampleID',
-                     'Index')) %>%
-    dplyr::select(SampleID, Index, pca_colors, everything()) 
+              by = c('SampleID')) %>%
+    dplyr::select(SampleID, pca_colors, everything()) 
   
   df_wide_matrix <- df_wide %>% 
-    dplyr::select(-Index, -pca_colors) %>%
+    dplyr::select(-pca_colors) %>%
     column_to_rownames('SampleID')
   
   # scales and centres data (imputes if there are any missing values)
