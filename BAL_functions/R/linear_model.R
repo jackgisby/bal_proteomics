@@ -147,13 +147,13 @@ olink_lm <- function(df,
             lmer_model<- df %>%
                 filter(!(GeneID %in% all_nas)) %>%
                 filter(!(GeneID %in% nas_in_var)) %>%
-                group_by(Assay, GeneID, UniProt, Panel) %>%
+                group_by(Assay, GeneID, Uniprot, Panel) %>%
                 group_map(~lm(as.formula(formula_string), data=.x))
             
             mod_names <- df %>%
                 filter(!(GeneID %in% all_nas)) %>%
                 filter(!(GeneID %in% nas_in_var)) %>%
-                group_by(Assay, GeneID, UniProt, Panel) %>%
+                group_by(Assay, GeneID, Uniprot, Panel) %>%
                 group_data() %>% 
                 dplyr::select("GeneID")
             
@@ -166,7 +166,7 @@ olink_lm <- function(df,
             lmer_model<-df %>%
                 filter(!(GeneID %in% all_nas)) %>%
                 filter(!(GeneID %in% nas_in_var)) %>%
-                group_by(Assay, GeneID, UniProt, Panel) %>%
+                group_by(Assay, GeneID, Uniprot, Panel) %>%
                 group_modify(~tidy(anova(lm(as.formula(formula_string), data=.x)))) %>%
                 ungroup() %>%
                 mutate(covariates = term %in% covariate_filter_string) %>% 
